@@ -1,0 +1,141 @@
+{
+  "coughAssessmentQuestionnaire": [
+    {
+      "section": "Onset and Duration",
+      "questions": [
+        {
+          "id": 1,
+          "text": "When did the cough first start?"
+        },
+        {
+          "id": 2,
+          "text": "Has it been getting better, worse, or staying the same?"
+        }
+      ]
+    },
+    {
+      "section": "Nature of the Cough",
+      "questions": [
+        {
+          "id": 3,
+          "text": "Is it a dry cough, or are you bringing up mucus or phlegm?"
+        },
+        {
+          "id": 4,
+          "text": "If you are producing mucus, what color is it? Clear, white, yellow, green, or blood-tinged?"
+        },
+        {
+          "id": 5,
+          "text": "Does the cough feel harsh, barking, or wheezy?"
+        }
+      ]
+    },
+    {
+      "section": "Associated Symptoms",
+      "questions": [
+        {
+          "id": 6,
+          "text": "Are you having any fever or chills?"
+        },
+        {
+          "id": 7,
+          "text": "Have you noticed a sore throat, runny nose, or nasal congestion?"
+        },
+        {
+          "id": 8,
+          "text": "Are you short of breath, or do you feel tightness in your chest?"
+        },
+        {
+          "id": 9,
+          "text": "Have you had any wheezing or a whistling sound when you breathe?"
+        },
+        {
+          "id": 10,
+          "text": "Do you have pain in your chest or throat when you cough?"
+        }
+      ]
+    },
+    {
+      "section": "Triggers and Patterns",
+      "questions": [
+        {
+          "id": 11,
+          "text": "Does the cough get worse at night, after lying down, or after eating?"
+        },
+        {
+          "id": 12,
+          "text": "Have you noticed that it worsens in cold air, with exercise, or around smoke or dust?"
+        }
+      ]
+    },
+    {
+      "section": "Exposure History",
+      "questions": [
+        {
+          "id": 13,
+          "text": "Have you been in contact with anyone who has had a cold, flu, or similar symptoms?"
+        },
+        {
+          "id": 14,
+          "text": "Have you traveled recently or been in crowded places?"
+        },
+        {
+          "id": 15,
+          "text": "Have you been around smoke, pollution, or chemicals that might irritate your lungs?"
+        }
+      ]
+    },
+    {
+      "section": "Lifestyle and Habits",
+      "questions": [
+        {
+          "id": 16,
+          "text": "Do you smoke, or are you exposed to secondhand smoke?"
+        },
+        {
+          "id": 17,
+          "text": "Do you have any history of asthma, allergies, or breathing problems?"
+        }
+      ]
+    },
+    {
+      "section": "Previous Treatments",
+      "questions": [
+        {
+          "id": 18,
+          "text": "Have you tried anything to relieve the cough, like over-the-counter medications or home remedies?"
+        },
+        {
+          "id": 19,
+          "text": "Did these treatments help at all?"
+        }
+      ]
+    },
+    {
+      "section": "Pain or Unusual Sensations",
+      "questions": [
+        {
+          "id": 20,
+          "text": "Do you have any pain when breathing deeply?"
+        },
+        {
+          "id": 21,
+          "text": "Have you noticed any unusual taste in your mouth, like something bitter or sour, especially after coughing?"
+        }
+      ]
+    },
+    {
+      "section": "Severity and Impact",
+      "questions": [
+        {
+          "id": 22,
+          "text": "How much is this cough interfering with your daily activities or sleep?"
+        },
+        {
+          "id": 23,
+          "text": "Would you say the cough is mild, moderate, or severe?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+package com.healthyoda.web;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+@Service
+public class AudioService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AudioService.class);
+
+    @Value("${audio.upload.dir}")
+    private String uploadDir;
+
+    public String saveAudio(MultipartFile audioFile, String fileName) throws IOException {
+        // Create upload directory if it doesn't exist
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        // Save the file
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(audioFile.getInputStream(), filePath);
+
+        LOGGER.info("Saved audio file: {}", filePath.toString());
+        
+        return filePath.toString();
+    }
+} 
