@@ -22,9 +22,6 @@ public class QuestionnaireController {
     private CoughQuestionnaireRepository repository;
 
     @Autowired
-    private AppointmentService appointmentService;
-
-    @Autowired
     private AudioService audioService;
 
 
@@ -78,6 +75,8 @@ public class QuestionnaireController {
 
             // Get next question
             Question nextQuestion = repository.getNextQuestion(nextQuestionId);
+
+
             
             if (nextQuestion != null) {
                 model.addAttribute("question", nextQuestion);
@@ -96,5 +95,13 @@ public class QuestionnaireController {
             // Handle error appropriately
             return "error";
         }
+    }
+
+    @GetMapping("/complete")
+    public String showCompletion(@RequestParam String sId, Model model) {
+        // Get appointment details
+        Appointment appointment = appointmentService.getAppointment(sId);
+        model.addAttribute("appointment", appointment);
+        return "complete";
     }
 }

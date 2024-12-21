@@ -1,7 +1,23 @@
 let mediaRecorder = null;
 let audioChunks = [];
 
-document.getElementById('startButton').addEventListener('click', async () => {
+// UI Elements
+const recordInitial = document.getElementById('recordInitial');
+const recordActive = document.getElementById('recordActive');
+const recordReview = document.getElementById('recordReview');
+const startButton = document.getElementById('startButton');
+const stopButton = document.getElementById('stopButton');
+const rerecordButton = document.getElementById('rerecordButton');
+const audioPlayer = document.getElementById('audioPlayer');
+const audioFile = document.getElementById('audioFile');
+
+function showState(state) {
+    recordInitial.style.display = state === 'initial' ? 'block' : 'none';
+    recordActive.style.display = state === 'recording' ? 'block' : 'none';
+    recordReview.style.display = state === 'review' ? 'block' : 'none';
+}
+
+startButton.addEventListener('click', async () => {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder = new MediaRecorder(stream);
@@ -15,10 +31,8 @@ document.getElementById('startButton').addEventListener('click', async () => {
             const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
             const audioUrl = URL.createObjectURL(audioBlob);
             
-            // Show audio player
-            const audio = document.getElementById('audioPlayer');
-            audio.src = audioUrl;
-            audio.style.display = 'block';
+            // Setup audio player
+            audioPlayer.src = audioUrl;
 
             // Attach file to form
             const audioFile = new File([audioBlob], 'recording.webm', { type: 'audio/webm' });
@@ -26,18 +40,15 @@ document.getElementById('startButton').addEventListener('click', async () => {
             dataTransfer.items.add(audioFile);
             document.getElementById('audioFile').files = dataTransfer.files;
             
-            // Show upload form
-            document.querySelector('form').style.display = 'block';
+            // Show review state
+            showState('review');
             
             // Stop and release media stream
             stream.getTracks().forEach(track => track.stop());
         };
 
         mediaRecorder.start();
-        document.getElementById('startButton').disabled = true;
-        document.getElementById('stopButton').disabled = false;
-        document.querySelector('.recording').style.display = 'inline';
-        document.querySelector('form').style.display = 'none';
+        showState('recording');
 
     } catch (err) {
         console.error('Error accessing microphone:', err);
@@ -45,11 +56,12 @@ document.getElementById('startButton').addEventListener('click', async () => {
     }
 });
 
-document.getElementById('stopButton').addEventListener('click', () => {
+stopButton.addEventListener('click', () => {
     if (mediaRecorder && mediaRecorder.state !== 'inactive') {
         mediaRecorder.stop();
-        document.getElementById('startButton').disabled = false;
-        document.getElementById('stopButton').disabled = true;
-        document.querySelector('.recording').style.display = 'none';
     }
+});
+
+rerecordButton.addEventListener('click', () => {
+    showState('initial');
 });

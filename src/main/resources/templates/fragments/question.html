@@ -2,45 +2,106 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <div id="questionContent">
-        <div class="card shadow-sm border-0 mb-4">
-            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-mic-fill me-2"></i>
-                    <h3 class="card-title h5 mb-0">Question</h3>
-                </div>
-                <span class="badge bg-light text-primary">
-                    <span th:text="${questionId}"></span> of <span th:text="${totalQuestions}"></span>
-                </span>
-            </div>
-            <div class="card-body">
-                <p class="card-text question mb-4 fs-5" th:text="${question.text}"></p>
-
-                <div class="recording-section">
-                    <div class="controls d-flex gap-2 mb-3">
-                        <button type="button" id="startButton" class="btn btn-primary">
-                            <i class="bi bi-mic-fill"></i> Start Recording
-                        </button>
-                        <button type="button" id="stopButton" class="btn btn-danger" disabled>
-                            <i class="bi bi-stop-fill"></i> Stop Recording
-                        </button>
-                        <span class="recording badge bg-danger align-self-center" style="display: none;">
-                            <i class="bi bi-record-circle animate-pulse"></i> Recording...
+        <div class="card shadow-sm border-0 rounded-4 mb-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="progress flex-grow-1 me-3" style="height: 8px;">
+                        <div class="progress-bar bg-primary" role="progressbar" 
+                             th:style="'width: ' + ${(questionId * 100) / totalQuestions} + '%'"
+                             th:aria-valuenow="${questionId}"
+                             aria-valuemin="0" 
+                             th:aria-valuemax="${totalQuestions}">
+                        </div>
+                    </div>
+                    <div class="question-counter">
+                        <span class="text-muted">Question</span>
+                        <span class="badge bg-primary rounded-pill ms-2">
+                            <span th:text="${questionId}"></span>/<span th:text="${totalQuestions}"></span>
                         </span>
                     </div>
+                </div>
+            </div>
+            
+            <div class="card-body p-4">
+                <h2 class="question-text mb-4 fs-4" th:text="${question.text}"></h2>
 
-                    <audio id="audioPlayer" controls class="w-100 mb-3" style="display: none;"></audio>
-                    
-                    <form method="post" action="/session/upload" enctype="multipart/form-data" style="display: none;">
-                        <input type="hidden" name="sId" th:value="${sId}">
-                        <input type="hidden" name="questionId" th:value="${questionId}">
-                        <input type="file" name="audio" id="audioFile" style="display: none;">
-                        <button type="submit" class="btn btn-success w-100">
-                            <i class="bi bi-arrow-right-circle-fill"></i> Continue to Next Question
+                <div class="recording-section">
+                    <!-- Initial State -->
+                    <div class="record-initial text-center p-4 mb-3 rounded-3 border border-2 border-dashed" 
+                         id="recordInitial">
+                        <i class="bi bi-mic-fill fs-1 text-primary mb-3"></i>
+                        <h3 class="fs-5">Ready to Record Your Answer</h3>
+                        <p class="text-muted mb-3">Find a quiet place and click the button when ready</p>
+                        <button type="button" id="startButton" class="btn btn-primary btn-lg px-4">
+                            Start Recording
                         </button>
-                    </form>
+                    </div>
+
+                    <!-- Recording State -->
+                    <div class="record-active bg-danger bg-opacity-10 text-center p-4 mb-3 rounded-3" 
+                         style="display: none;" id="recordActive">
+                        <div class="recording-indicator mb-3">
+                            <i class="bi bi-record-circle text-danger fs-1 recording-pulse"></i>
+                        </div>
+                        <h3 class="fs-5 text-danger">Recording in Progress...</h3>
+                        <p class="text-muted mb-3">Speak clearly into your microphone</p>
+                        <button type="button" id="stopButton" class="btn btn-danger btn-lg px-4">
+                            Stop Recording
+                        </button>
+                    </div>
+
+                    <!-- Review State -->
+                    <div class="record-review bg-light p-4 rounded-3" style="display: none;" id="recordReview">
+                        <h3 class="fs-5 mb-3">Review Your Recording</h3>
+                        <audio id="audioPlayer" controls class="w-100 mb-3"></audio>
+                        
+                        <form method="post" action="/session/upload" enctype="multipart/form-data">
+                            <input type="hidden" name="sId" th:value="${sId}">
+                            <input type="hidden" name="questionId" th:value="${questionId}">
+                            <input type="file" name="audio" id="audioFile" style="display: none;">
+                            
+                            <div class="d-flex gap-2">
+                                <button type="button" id="rerecordButton" class="btn btn-outline-secondary flex-grow-1">
+                                    <i class="bi bi-arrow-counterclockwise"></i> Record Again
+                                </button>
+                                <button type="submit" class="btn btn-success flex-grow-1">
+                                    <i class="bi bi-arrow-right-circle-fill"></i> Continue
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <style>
+            .recording-pulse {
+                animation: pulse 1.5s infinite;
+            }
+
+            @keyframes pulse {
+                0% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.5; transform: scale(1.05); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+
+            .progress {
+                background-color: #e9ecef;
+                border-radius: 10px;
+            }
+
+            .progress-bar {
+                transition: width 0.3s ease;
+            }
+
+            audio {
+                border-radius: 8px;
+            }
+
+            audio::-webkit-media-controls-panel {
+                background-color: #f8f9fa;
+            }
+        </style>
 
         <script src="/js/recording.js"></script>
     </div>

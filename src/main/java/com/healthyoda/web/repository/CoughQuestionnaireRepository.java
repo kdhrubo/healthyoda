@@ -15,7 +15,7 @@ public class CoughQuestionnaireRepository {
     private final ObjectMapper objectMapper;
     private Questionnaire questionnaire;
     private List<Question> allQuestions;
-    private int currentQuestionIndex = 0;
+
 
     public CoughQuestionnaireRepository() {
         this.objectMapper = new ObjectMapper();
@@ -25,7 +25,7 @@ public class CoughQuestionnaireRepository {
 
     private void loadQuestionnaire() {
         try {
-            Resource resource = new ClassPathResource("data/cough.json");
+            Resource resource = new ClassPathResource("data/cough-short.json");
             questionnaire = objectMapper.readValue(resource.getInputStream(), Questionnaire.class);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load questionnaire", e);
@@ -41,24 +41,10 @@ public class CoughQuestionnaireRepository {
 
     public Question getNextQuestion(int questionId) {
         return this.allQuestions.stream()
-                .filter(question -> question.id() >= currentQuestionIndex)
+                .filter(question -> question.id() >= questionId)
                 .findFirst().orElse(null);
     }
 
-    public Question getCurrentQuestion() {
-        if (currentQuestionIndex == 0 || currentQuestionIndex > allQuestions.size()) {
-            return null;
-        }
-        return allQuestions.get(currentQuestionIndex - 1);
-    }
-
-    public void reset() {
-        currentQuestionIndex = 0;
-    }
-
-    public boolean hasMoreQuestions() {
-        return currentQuestionIndex < allQuestions.size();
-    }
 
     public int getTotalQuestions() {
         return allQuestions.size();

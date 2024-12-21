@@ -1,0 +1,34 @@
+{
+  "coughAssessmentQuestionnaire": [
+    {
+      "section": "Onset and Duration",
+      "questions": [
+        {
+          "id": 1,
+          "text": "When did the cough first start?"
+        },
+        {
+          "id": 2,
+          "text": "Has it been getting better, worse, or staying the same?"
+        }
+      ]
+    },
+    {
+      "section": "Nature of the Cough",
+      "questions": [
+        {
+          "id": 3,
+          "text": "Is it a dry cough, or are you bringing up mucus or phlegm?"
+        },
+        {
+          "id": 4,
+          "text": "If you are producing mucus, what color is it? Clear, white, yellow, green, or blood-tinged?"
+        },
+        {
+          "id": 5,
+          "text": "Does the cough feel harsh, barking, or wheezy?"
+        }
+      ]
+    }
+    ]
+}
