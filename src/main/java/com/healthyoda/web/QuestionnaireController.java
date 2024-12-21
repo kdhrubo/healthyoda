@@ -87,7 +87,7 @@ public class QuestionnaireController {
                 return "home";
             } else {
                 // No more questions, redirect to completion page
-                return "redirect:/session/complete";
+                return "redirect:/session/complete?sId=" + sId;
             }
             
         } catch (Exception e) {
@@ -100,8 +100,7 @@ public class QuestionnaireController {
     @GetMapping("/complete")
     public String showCompletion(@RequestParam String sId, Model model) {
         // Get appointment details
-        Appointment appointment = appointmentService.getAppointment(sId);
-        model.addAttribute("appointment", appointment);
+
         return "complete";
     }
 }

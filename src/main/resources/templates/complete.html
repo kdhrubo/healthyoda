@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assessment Complete - HealthYoda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        .header {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            border-bottom: 1px solid #e9ecef;
+        }
+        .logo {
+            height: 40px;
+        }
+        .completion-card {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        .next-steps {
+            border-left: 4px solid #198754;
+            background-color: #f8f9fa;
+        }
+        .step-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #198754;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <header class="header py-3 mb-4">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="/images/logo.svg" alt="HealthYoda Logo" class="logo me-3">
+                <h1 class="h5 mb-0">Cough Assessment</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="completion-card">
+            <!-- Success Message -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-body text-center p-4">
+                    <div class="mb-4">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h2 class="fs-3 mb-3">Assessment Complete!</h2>
+                    <p class="text-muted mb-0">
+                        Thank you for completing your cough assessment. Your responses have been successfully recorded.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h3 class="fs-4 mb-4">What happens next?</h3>
+                    
+                    <div class="next-steps p-4 rounded-3">
+                        <div class="d-flex mb-4">
+                            <div class="step-icon me-3">
+                                <i class="bi bi-file-earmark-medical"></i>
+                            </div>
+                            <div>
+                                <h4 class="fs-5">Review Process</h4>
+                                <p class="text-muted mb-0">Your doctor will review your responses before your appointment.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-4">
+                            <div class="step-icon me-3">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="fs-5">Upcoming Appointment</h4>
+                                <p class="text-muted mb-0">
+                                    Your scheduled appointment with 
+                                    <span class="fw-medium" th:text="${appointment?.doctorName}">Dr. Smith</span>
+                                    on <span class="fw-medium" th:text="${appointment?.dt}">January 1, 2024</span> remains unchanged.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="step-icon me-3">
+                                <i class="bi bi-telephone"></i>
+                            </div>
+                            <div>
+                                <h4 class="fs-5">Need Assistance?</h4>
+                                <p class="text-muted mb-0">If you need to modify your appointment or have questions, please contact our support team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex gap-3 mt-4">
+                <a href="/dashboard" class="btn btn-outline-primary flex-grow-1">
+                    <i class="bi bi-house"></i> Return to Dashboard
+                </a>
+                <a href="#" class="btn btn-outline-secondary flex-grow-1" onclick="window.print()">
+                    <i class="bi bi-printer"></i> Print Summary
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
