@@ -2,6 +2,7 @@ package com.healthyoda.web;
 
 import com.healthyoda.web.repository.CoughQuestionnaireRepository;
 import com.healthyoda.web.repository.Question;
+import com.healthyoda.web.summary.SummaryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,10 @@ public class QuestionnaireController {
     private CoughQuestionnaireRepository repository;
 
     @Autowired
-    private AudioService audioService;
+    private AudioStorageService audioStorageService;
 
-
+    @Autowired
+    private SummaryService summaryService;
 
     @GetMapping
     public String showLanding(
@@ -69,7 +71,7 @@ public class QuestionnaireController {
         try {
             // Generate unique filename and save audio
             String fileName = sId + "_q" + questionId + "_" + UUID.randomUUID() + ".wav";
-            audioService.saveAudio(audioFile, fileName);
+            audioStorageService.saveAudio(audioFile, fileName);
 
             int nextQuestionId = questionId + 1;
 
@@ -87,6 +89,7 @@ public class QuestionnaireController {
                 return "home";
             } else {
                 // No more questions, redirect to completion page
+                summaryService.createSummary();
                 return "redirect:/session/complete?sId=" + sId;
             }
             
