@@ -1,4 +1,4 @@
-package com.healthyoda.web;
+package com.healthyoda.platform;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

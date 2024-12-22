@@ -1,4 +1,4 @@
-package com.healthyoda.web;
+package com.healthyoda.platform.condition.storage;
 
 
 import org.slf4j.Logger;

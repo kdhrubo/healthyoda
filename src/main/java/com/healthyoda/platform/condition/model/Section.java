@@ -1,4 +1,4 @@
-package com.healthyoda.web.repository;
+package com.healthyoda.platform.condition.model;
 
 import java.util.List;
 

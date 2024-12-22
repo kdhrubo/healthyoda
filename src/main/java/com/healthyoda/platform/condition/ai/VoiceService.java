@@ -1,4 +1,4 @@
-package com.healthyoda.web.ai;
+package com.healthyoda.platform.condition.ai;
 
 import org.springframework.core.io.Resource;
 

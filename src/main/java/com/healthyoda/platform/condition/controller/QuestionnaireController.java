@@ -1,8 +1,9 @@
-package com.healthyoda.web;
+package com.healthyoda.platform.condition.controller;
 
-import com.healthyoda.web.repository.CoughQuestionnaireRepository;
-import com.healthyoda.web.repository.Question;
-import com.healthyoda.web.summary.SummaryService;
+import com.healthyoda.platform.condition.service.SummaryService;
+import com.healthyoda.platform.condition.model.Question;
+import com.healthyoda.platform.condition.repository.CoughQuestionnaireRepository;
+import com.healthyoda.platform.condition.storage.AudioStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

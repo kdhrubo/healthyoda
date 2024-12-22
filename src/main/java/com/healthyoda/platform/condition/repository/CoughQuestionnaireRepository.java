@@ -1,6 +1,8 @@
-package com.healthyoda.web.repository;
+package com.healthyoda.platform.condition.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.healthyoda.platform.condition.model.Question;
+import com.healthyoda.platform.condition.model.Questionnaire;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,10 @@ public class CoughQuestionnaireRepository {
         this.objectMapper = new ObjectMapper();
         loadQuestionnaire();
         initializeQuestionsList();
+    }
+
+    public List<Question> getAllQuestions() {
+        return allQuestions;
     }
 
     private void loadQuestionnaire() {
