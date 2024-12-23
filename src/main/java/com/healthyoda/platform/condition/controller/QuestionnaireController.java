@@ -104,6 +104,9 @@ public class QuestionnaireController {
     @GetMapping("/complete")
     public String showCompletion(@RequestParam String sId, Model model) {
         // Get appointment details
+
+        LOGGER.info("Sid : {}", sId);
+
         summaryService.createSummary(sId);
         return "complete";
     }

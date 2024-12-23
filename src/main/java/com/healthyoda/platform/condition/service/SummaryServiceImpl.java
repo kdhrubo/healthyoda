@@ -77,7 +77,7 @@ public class SummaryServiceImpl implements SummaryService {
         LOGGER.info("Summary: {}", summary);
 
         var email = new Email("info@db2rest.com",
-                "dhrubo.kayal@gmail.com",
+                "grabdoc2020@gmail.com",
                 "Appointment # " + sId + " Patient Response Summary" ,
                 "email-summary",
                 Map.of("appointmentNo", sId, "portalUrl", "https://portal.healthyoda.com"

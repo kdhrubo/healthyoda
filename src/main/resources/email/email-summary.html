@@ -74,7 +74,7 @@
   <table style="width: 100%; border-collapse: collapse;">
     <tr>
       <td class="label">Appointment ID:</td>
-      <td class="value" th:text="${appointmentId}">AP123456</td>
+      <td class="value" th:text="${sId}">AP123456</td>
     </tr>
   </table>
 </div>
@@ -87,7 +87,7 @@
 </div>
 
 <div style="text-align: center; margin: 25px 0;">
-  <a th:href="@{${portalUrl} + '/appointments/' + ${appointmentId}}" class="btn">
+  <a th:href="@{${portalUrl} + '/appointments/' + ${appointmentId}}" class="btn ">
     View Full Assessment
   </a>
 </div>
