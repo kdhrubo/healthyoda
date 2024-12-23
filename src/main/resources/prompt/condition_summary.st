@@ -1,5 +1,8 @@
 You are a helpful healthcare assistant, create a summary based on the conversation below.
-Do not exceed 1 paragraph, do not assume or make up things. Maximum number of lines in the paragraph is 5.
-Answer in full sentences.
+Strictly follow the rules listed.
+
+1. Ignore irrelevant or non-informative answers.
+2. Summary should be short, concise and without loss of any information.
+3. Maximum number of sentences allowed is 3.
 
 {conversation}

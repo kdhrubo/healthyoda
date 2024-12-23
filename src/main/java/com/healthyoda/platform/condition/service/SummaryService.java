@@ -1,5 +1,5 @@
 package com.healthyoda.platform.condition.service;
 
 public interface SummaryService {
-    void createSummary();
+    void createSummary(String sId);
 }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cough Assessment Summary</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .appointment-info {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .summary-section {
+      background-color: #fff;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .label {
+      color: #6c757d;
+      font-size: 0.9em;
+    }
+    .value {
+      font-weight: bold;
+      color: #212529;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #dee2e6;
+      font-size: 0.9em;
+      color: #6c757d;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #198754;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 15px;
+    }
+    @media only screen and (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <h1 style="margin: 0; color: #198754;">Cough Assessment Summary</h1>
+  <p style="margin-top: 5px; color: #6c757d;">Voice-based Health Analysis Report</p>
+</div>
+
+<div class="appointment-info">
+  <h2 style="margin-top: 0; font-size: 1.2em;">Appointment Details</h2>
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td class="label">Appointment ID:</td>
+      <td class="value" th:text="${appointmentId}">AP123456</td>
+    </tr>
+  </table>
+</div>
+
+<div class="summary-section">
+  <h2 style="margin-top: 0; font-size: 1.2em;">Assessment Summary</h2>
+  <div th:utext="${summary}">
+    <!-- Summary content will be inserted here -->
+  </div>
+</div>
+
+<div style="text-align: center; margin: 25px 0;">
+  <a th:href="@{${portalUrl} + '/appointments/' + ${appointmentId}}" class="btn">
+    View Full Assessment
+  </a>
+</div>
+
+<div class="footer">
+  <p>This is an automated summary generated from the patient's voice responses.
+    Please review the full assessment including audio recordings in the doctor's portal.</p>
+  <p style="margin-bottom: 0;">
+    <small>HealthYoda Medical Services<br>
+      <a href="mailto:support@healthyoda.com" style="color: #198754;">support@healthyoda.com</a></small>
+  </p>
+</div>
+</body>
+</html>

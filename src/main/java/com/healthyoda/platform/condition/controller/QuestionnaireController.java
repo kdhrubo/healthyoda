@@ -90,7 +90,7 @@ public class QuestionnaireController {
                 return "home";
             } else {
                 // No more questions, redirect to completion page
-                summaryService.createSummary();
+
                 return "redirect:/session/complete?sId=" + sId;
             }
             
@@ -104,7 +104,7 @@ public class QuestionnaireController {
     @GetMapping("/complete")
     public String showCompletion(@RequestParam String sId, Model model) {
         // Get appointment details
-
+        summaryService.createSummary(sId);
         return "complete";
     }
 }

@@ -6,6 +6,8 @@ import com.healthyoda.platform.condition.model.Question;
 import com.healthyoda.platform.condition.model.TranscribedQuestionAnswer;
 import com.healthyoda.platform.condition.repository.CoughQuestionnaireRepository;
 import com.healthyoda.platform.condition.storage.AudioStorageService;
+import com.healthyoda.platform.mail.Email;
+import com.healthyoda.platform.mail.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.messages.Message;
@@ -26,23 +28,24 @@ public class SummaryServiceImpl implements SummaryService {
     private final VoiceService voiceService;
     private final CoughQuestionnaireRepository coughQuestionnaireRepository;
     private final ChatService chatService;
+    private final EmailService emailService;
 
     @Value("classpath:/prompt/condition_summary.st")
     Resource promptTemplateResource;
 
 
-    public SummaryServiceImpl(AudioStorageService audioStorageService, VoiceService voiceService, CoughQuestionnaireRepository coughQuestionnaireRepository, ChatService chatService) {
+    public SummaryServiceImpl(AudioStorageService audioStorageService, VoiceService voiceService, CoughQuestionnaireRepository coughQuestionnaireRepository, ChatService chatService, EmailService emailService) {
         this.audioStorageService = audioStorageService;
         this.voiceService = voiceService;
         this.coughQuestionnaireRepository = coughQuestionnaireRepository;
         this.chatService = chatService;
+        this.emailService = emailService;
     }
 
 
-    @Async
-    public void createSummary() {
-        List<Resource> resourceList =
-        audioStorageService.getAllFiles();
+
+    public void createSummary(String sId) {
+        List<Resource> resourceList = audioStorageService.getAllFiles();
 
         LOGGER.info("Total files: {}", resourceList.size());
 
@@ -58,13 +61,13 @@ public class SummaryServiceImpl implements SummaryService {
             String text =
             this.voiceService.transcribe(resource);
 
-            LOGGER.info("Transcribed file: {}", text);
-
             TranscribedQuestionAnswer transcribedQuestionAnswer =
-            new TranscribedQuestionAnswer(questionList.get(i).text(), text);
+            new TranscribedQuestionAnswer(questionList.get(i++).text(), text);
 
             conversation.append("\n").append(transcribedQuestionAnswer.getQA());
         }
+
+        LOGGER.info("conversation: {}", conversation);
 
         PromptTemplate userPromptTemplate = new PromptTemplate(promptTemplateResource);
         Message userMessage = userPromptTemplate.createMessage(Map.of("conversation", conversation));
@@ -72,6 +75,17 @@ public class SummaryServiceImpl implements SummaryService {
         String summary = chatService.chat(userMessage);
 
         LOGGER.info("Summary: {}", summary);
+
+        var email = new Email("info@db2rest.com",
+                "dhrubo.kayal@gmail.com",
+                "Appointment # " + sId + " Patient Response Summary" ,
+                "email-summary",
+                Map.of("appointmentNo", sId, "portalUrl", "https://portal.healthyoda.com"
+                        , "summary", summary
+                )
+        );
+
+        emailService.sendEmail(email);
 
     }
 
